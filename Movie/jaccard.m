@@ -7,12 +7,12 @@ whoRated1 = ratings(whoRated1Index,1);
 %people who has watched the second movie
 whoRated2Index = find(ratings(:,2) == movieID2);
 whoRated2 = ratings(whoRated2Index,1);
-
+%people who has watched both
 ratedBoth = intersect(whoRated1,whoRated2);
 NumofRatedBoth = size(ratedBoth,1);
-
+%people who has watched atleast one of the movies
 AtLeastRatedOne = union(whoRated1,whoRated2);
 NumofAtleastRatedOne = size(AtLeastRatedOne,1);
 
-jc = NumofRatedBoth / NumofAtleastRatedOne
+jc = NumofRatedBoth / NumofAtleastRatedOne;
 end

@@ -1,4 +1,4 @@
-function[x,y] = corrolation(ratings,movieID1,movieID2)
+function[corr_value] = corrolation(ratings,movieID1,movieID2)
 %calculation for movieID1
 whoRated1Index = find(ratings(:,2) == movieID1);
 whoRated1 = ratings(whoRated1Index,1)
@@ -7,14 +7,39 @@ whoRated2Index = find(ratings(:,2) == movieID2);
 whoRated2 = ratings(whoRated2Index,1)
 
 Rated1and2 = intersect(whoRated1,whoRated2)
-%tmpdata contains the information of people who have rated both movies
-recordID1 =(ismember(ratings(:,1),Rated1and2))&(ratings(:,2)==movieID1)
-record1 = 
-
-%To narrow down the domain of the search, we pick only ratings relevent to
-%either of the movies
-
-
-
-
-end
+%31 is the threshold obtained by try and erro
+%I found the value of threshol must be in [29,32] by
+%calculating corr for different scenarios
+if(length(Rated1and2)>31)
+    
+    recordID1 =(ismember(ratings(:,1),Rated1and2))&(ratings(:,2)==movieID1);
+    rating1 = ratings(find(recordID1),:);
+    
+    % It is required to sort data, as in the calculation of Corr formula
+    %deals with the values of the SAME attributes
+    %by the way of example, by sorting, it is guaranteed that
+    %xk and yk both are corrosponding to the rating of the same person
+    [~,sorted1] = sort(rating1(:,1));
+    sortedRating1 = rating1(sorted1,:);
+    
+    
+    %I perform the same operations for the second movie
+    recordID2 =(ismember(ratings(:,1),Rated1and2))&(ratings(:,2)==movieID2);
+    rating2 = ratings(find(recordID2),:);
+    [~,sorted2] = sort(rating2(:,1));
+    sortedRating2 = rating2(sorted2,:);
+    % we need std of ratings be greater than zero due to the corr formula
+    if(std(sortedRating1(:,3))>0 & std(sortedRating2(:,3))>0)
+        corr_value=corr(sortedRating1(:,3),sortedRating2(:,3));
+    else
+        corr_value = 0;
+        
+        
+        
+        
+    else
+        corr_value = 0
+        
+        
+        
+    end

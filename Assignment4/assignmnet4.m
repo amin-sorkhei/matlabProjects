@@ -19,8 +19,8 @@ hold off
 %=================part c=================%
 k=[1 3 5 7 9 13 17 21 25 33 41 49 57];
 for i=1:length(k)
-y_hat=kNN(k(i),test_set,training_set,training_y)
-conf_matrix=confusionmat(test_y,y_hat)
+y_hat=kNN(k(i),test_set,training_set,training_y);
+conf_matrix=confusionmat(test_y,y_hat);
 misClassification(i)=(conf_matrix(1,2)+conf_matrix(2,1))/length(test_set);
 end
 plot(k,misClassification);

@@ -11,7 +11,6 @@ while(true)
     [length,~]=size(centroids);
     for i = 1 : length
         temp = X_matrix(find(a_i == i),:);
-        temp
         final_centroids(i,:) = mean(temp,1);
     end
     final_centroids
